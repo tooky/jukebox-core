@@ -1,7 +1,7 @@
 Feature: Find a song
 
   Scenario: Find a song
-    Given the following track exists in the Jukebox's catalogue
+    Given the following song exists in the Jukebox's catalogue
       | artist      | title              |
       | David Bowie | We could be heroes |
     When I search for "heroes"
