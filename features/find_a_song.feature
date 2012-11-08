@@ -8,6 +8,12 @@ Feature: Find a song
     Then I should see the song in the results
 
   Scenario: Unknown song
+    Given the following song exists in the Jukebox's catalogue
+      | artist      | title              |
+      | David Bowie | We could be heroes |
+    When I search for "villains"
+    Then I should not see the song in the results
+    And I should be notified that my song could not be found
 
   Scenario: Song already in playlist
 
