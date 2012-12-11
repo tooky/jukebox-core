@@ -20,6 +20,9 @@ GEM
     guard-cucumber (1.2.2)
       cucumber (>= 1.2.0)
       guard (>= 1.1.0)
+    guard-rspec (2.3.1)
+      guard (>= 1.1)
+      rspec (~> 2.11)
     json (1.7.5)
     listen (0.6.0)
     lumberjack (1.0.2)
@@ -49,6 +52,7 @@ PLATFORMS
 DEPENDENCIES
   cucumber
   guard-cucumber
+  guard-rspec
   rb-fsevent
   rspec
   terminal-notifier-guard
