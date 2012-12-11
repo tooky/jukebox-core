@@ -11,11 +11,8 @@ VCR.configure do |config|
   config.hook_into :webmock
 end
 
-describe FakeCatalogue do
-  let(:catalogue) { FakeCatalogue.new }
+shared_examples_for 'a catalogue' do
   let(:song) { create_song(artist: 'The Libertines', title: 'What Became Of The Likely Lads') }
-  before { catalogue.add_song song }
-
   context "searching for songs" do
     it "returns exact matching songs" do
       catalogue.search('What Became Of The Likely Lads').should include(song)
@@ -29,7 +26,13 @@ describe FakeCatalogue do
       catalogue.search('Villains').should_not include(song)
     end
   end
+end
 
+describe FakeCatalogue do
+  let(:catalogue) { FakeCatalogue.new }
+  before { catalogue.add_song song }
+
+  it_behaves_like 'a catalogue'
 end
 
 describe SpotifyCatalogue::SongBuilder do
@@ -47,22 +50,7 @@ end
 
 describe SpotifyCatalogue do
   let(:catalogue) { SpotifyCatalogue.new }
-  let(:song) { create_song(artist: 'The Libertines', title: 'What Became Of The Likely Lads') }
+  use_vcr_cassette "spotify api"
 
-  context "searching for songs" do
-    use_vcr_cassette "spotify api"
-
-    it "returns exact matching songs" do
-      catalogue.search('What Became Of The Likely Lads').should include(song)
-    end
-
-    it "returns partial matching songs" do
-      catalogue.search('Likely').should include(song)
-    end
-
-    it "does not include songs that don't match" do
-      catalogue.search('Villains').should_not include(song)
-    end
-  end
-
+  it_behaves_like 'a catalogue'
 end
