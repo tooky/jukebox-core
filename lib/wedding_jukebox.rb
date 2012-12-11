@@ -36,3 +36,9 @@ class FakeCatalogue
     @songs ||= []
   end
 end
+
+module TestDataBuilder
+  def create_song(song_details)
+    Song.new(song_details)
+  end
+end

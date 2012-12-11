@@ -1,8 +1,10 @@
 require 'wedding_jukebox'
 
 describe FakeCatalogue do
+  include TestDataBuilder
+
   let(:catalogue) { FakeCatalogue.new }
-  let(:song) { Song.new(artist: 'David Bowie', title: 'We could be heroes') }
+  let(:song) { create_song(artist: 'David Bowie', title: 'We could be heroes') }
   before { catalogue.add_song song }
 
   context "searching for songs" do

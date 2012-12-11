@@ -1,11 +1,6 @@
-require 'wedding_jukebox'
 module Driver
   def jukebox
     @jukebox ||= Jukebox.new(ui, catalogue)
-  end
-
-  def create_song(song_details)
-    Song.new(song_details)
   end
 
   def ui
