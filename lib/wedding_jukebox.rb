@@ -5,7 +5,7 @@ class Song
   attribute :title,  String
 
   def matches?(term)
-    title == term
+    title =~ /#{term}/
   end
 end
 
