@@ -7,7 +7,7 @@ RSpec.configure do |config|
 end
 
 VCR.configure do |config|
-  config.cassette_library_dir     = 'spec/cassettes'
+  config.cassette_library_dir = 'spec/cassettes'
   config.hook_into :webmock
 end
 
@@ -35,6 +35,13 @@ describe FakeCatalogue do
   it_behaves_like 'a catalogue'
 end
 
+describe SpotifyCatalogue do
+  let(:catalogue) { SpotifyCatalogue.new }
+  use_vcr_cassette "spotify api"
+
+  it_behaves_like 'a catalogue'
+end
+
 describe SpotifyCatalogue::SongBuilder do
   let(:data) do
     {
@@ -44,13 +51,7 @@ describe SpotifyCatalogue::SongBuilder do
   end
 
   it "turns a piece of Spotify API data into a Song" do
-    SpotifyCatalogue::SongBuilder.new(data).song.should == Song.new(artist: 'Taylor Swift', title: 'We Are Never Ever Getting Back Together')
+    SpotifyCatalogue::SongBuilder.new(data).song.should ==
+      create_song(artist: 'Taylor Swift', title: 'We Are Never Ever Getting Back Together')
   end
-end
-
-describe SpotifyCatalogue do
-  let(:catalogue) { SpotifyCatalogue.new }
-  use_vcr_cassette "spotify api"
-
-  it_behaves_like 'a catalogue'
 end
