@@ -3,6 +3,10 @@ class Song
   include Virtus::ValueObject
   attribute :artist, String
   attribute :title,  String
+
+  def matches?(term)
+    title == term
+  end
 end
 
 class Jukebox
@@ -18,7 +22,9 @@ end
 
 class FakeCatalogue
   def search(term)
-    @songs
+    @songs.select do |song|
+      song.matches?(term)
+    end
   end
 
   def add_song(song)

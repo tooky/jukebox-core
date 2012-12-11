@@ -9,6 +9,12 @@ describe FakeCatalogue do
       catalogue.add_song song
       catalogue.search('Heroes').should == [song]
     end
+
+    it "does not include songs that don't match" do
+      song = Song.new('artist' => 'David Bowie', 'title' => 'Heroes')
+      catalogue.add_song song
+      catalogue.search('Villains').should_not include(song)
+    end
   end
 
 end
