@@ -13,7 +13,7 @@ module Driver
   end
 
   def catalogue
-    @catalogue ||= TestCatalogue.new
+    @catalogue ||= FakeCatalogue.new
   end
 
   class TestUI

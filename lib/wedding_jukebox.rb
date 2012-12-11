@@ -16,7 +16,7 @@ class Jukebox
   end
 end
 
-class TestCatalogue
+class FakeCatalogue
   def search(term)
     @songs
   end
