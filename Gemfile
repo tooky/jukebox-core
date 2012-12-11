@@ -6,4 +6,5 @@ group :test do
   gem 'guard-cucumber'
   gem 'rb-fsevent'
   gem 'terminal-notifier-guard'
+  gem 'virtus'
 end

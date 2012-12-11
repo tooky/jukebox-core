@@ -1,8 +1,8 @@
+require 'virtus'
 class Song
-  def initialize(details)
-    @artist = details.fetch('artist')
-    @title = details.fetch('title')
-  end
+  include Virtus::ValueObject
+  attribute :artist, String
+  attribute :title,  String
 end
 
 class Jukebox
