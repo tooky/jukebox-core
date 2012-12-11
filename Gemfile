@@ -8,4 +8,5 @@ group :test do
   gem 'rb-fsevent'
   gem 'terminal-notifier-guard'
   gem 'virtus'
+  gem 'rest-client'
 end

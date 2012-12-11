@@ -1,21 +1,21 @@
 require 'wedding_jukebox'
 
-Rspec.configure do |config|
+RSpec.configure do |config|
   config.include TestDataBuilder
 end
 
 describe FakeCatalogue do
   let(:catalogue) { FakeCatalogue.new }
-  let(:song) { create_song(artist: 'David Bowie', title: 'We could be heroes') }
+  let(:song) { create_song(artist: 'The Libertines', title: 'What Became Of The Likely Lads') }
   before { catalogue.add_song song }
 
   context "searching for songs" do
     it "returns exact matching songs" do
-      catalogue.search('We could be heroes').should == [song]
+      catalogue.search('What Became Of The Likely Lads').should include(song)
     end
 
     it "returns partial matching songs" do
-      catalogue.search('heroes').should == [song]
+      catalogue.search('Likely').should include(song)
     end
 
     it "does not include songs that don't match" do
@@ -26,10 +26,15 @@ describe FakeCatalogue do
 end
 
 require 'json'
+require 'rest_client'
 class SpotifyCatalogue
   def search(term)
-    results = JSON.parse(`curl http://ws.spotify.com/search/1/track.json?q=#{term}`)
+    results = JSON.parse(query_api(term))
     SongBuilder.map(results)
+  end
+
+  def query_api(term)
+    RestClient.get("http://ws.spotify.com/search/1/track.json", params: {q: term})
   end
 
   class SongBuilder
@@ -68,21 +73,22 @@ describe SpotifyCatalogue::SongBuilder do
   end
 end
 
-#describe SpotifyCatalogue do
-  #let(:catalogue) { SpotifyCatalogue.new }
-  #let(:song) { create_song(artist: 'David Bowie', title: 'We could be heroes') }
+describe SpotifyCatalogue do
+  let(:catalogue) { SpotifyCatalogue.new }
+  let(:song) { create_song(artist: 'The Libertines', title: 'What Became Of The Likely Lads') }
 
-  #context "searching for songs" do
-    #it "returns exact matching songs" do
-      #catalogue.search('We could be heroes').should == [song]
-    #end
+  context "searching for songs" do
+    it "returns exact matching songs" do
+      catalogue.search('What Became Of The Likely Lads').should include(song)
+    end
 
-    #it "returns partial matching songs" do
-      #catalogue.search('heroes').should == [song]
-    #end
+    it "returns partial matching songs" do
+      catalogue.search('Likely').should include(song)
+    end
 
-    #it "does not include songs that don't match" do
-      #catalogue.search('Villains').should_not include(song)
-    #end
-  #end
-#end
+    it "does not include songs that don't match" do
+      catalogue.search('Villains').should_not include(song)
+    end
+  end
+
+end
