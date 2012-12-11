@@ -26,6 +26,10 @@ module Driver
       @results = results
       self
     end
+
+    def displaying_no_results_notification?
+      @results.empty?
+    end
   end
 
 end
