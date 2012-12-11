@@ -9,4 +9,6 @@ group :test do
   gem 'terminal-notifier-guard'
   gem 'virtus'
   gem 'rest-client'
+  gem 'vcr'
+  gem 'webmock'
 end

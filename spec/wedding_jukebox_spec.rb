@@ -1,7 +1,14 @@
 require 'wedding_jukebox'
+require 'vcr'
 
 RSpec.configure do |config|
   config.include TestDataBuilder
+  config.extend VCR::RSpec::Macros
+end
+
+VCR.configure do |config|
+  config.cassette_library_dir     = 'spec/cassettes'
+  config.hook_into :webmock
 end
 
 describe FakeCatalogue do
@@ -43,6 +50,8 @@ describe SpotifyCatalogue do
   let(:song) { create_song(artist: 'The Libertines', title: 'What Became Of The Likely Lads') }
 
   context "searching for songs" do
+    use_vcr_cassette "spotify api"
+
     it "returns exact matching songs" do
       catalogue.search('What Became Of The Likely Lads').should include(song)
     end
