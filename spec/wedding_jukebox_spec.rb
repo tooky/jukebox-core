@@ -1,4 +1,4 @@
-require 'wedding_jukebox'
+require 'wedding_jukebox/core'
 require 'vcr'
 
 RSpec.configure do |config|
