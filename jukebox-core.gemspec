@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |gem|
-  gem.name          = "wedding_jukebox-core"
+  gem.name          = "jukebox-core"
   gem.version       = "0.0.1"
   gem.authors       = ["Steve Tooke", "Matt Wynne"]
   gem.email         = ["steve@heavi.es", "matt@matwynne.net"]

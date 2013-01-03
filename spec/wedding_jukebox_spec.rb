@@ -1,8 +1,8 @@
-require 'wedding_jukebox/core'
+require 'jukebox/core'
 require 'vcr'
 
 RSpec.configure do |config|
-  config.include WeddingJukebox::TestDataBuilder
+  config.include Jukebox::TestDataBuilder
   config.extend VCR::RSpec::Macros
 end
 
@@ -11,7 +11,7 @@ VCR.configure do |config|
   config.hook_into :webmock
 end
 
-module WeddingJukebox
+module Jukebox
   shared_examples_for 'a catalogue' do
     let(:song) { create_song(artist: 'The Libertines', title: 'What Became Of The Likely Lads') }
     context "searching for songs" do

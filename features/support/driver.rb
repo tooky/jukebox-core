@@ -1,4 +1,4 @@
-module WeddingJukebox
+module Jukebox
   module Driver
     def jukebox
       @jukebox ||= Jukebox.new(ui, catalogue)
@@ -30,4 +30,4 @@ module WeddingJukebox
 
   end
 end
-World(WeddingJukebox::Driver)
+World(Jukebox::Driver)

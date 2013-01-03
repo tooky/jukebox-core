@@ -1,5 +1,5 @@
 require 'virtus'
-module WeddingJukebox
+module Jukebox
   class Song
     include Virtus::ValueObject
     attribute :artist, String
